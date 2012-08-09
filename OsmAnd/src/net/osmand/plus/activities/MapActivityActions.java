@@ -43,7 +43,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnMultiChoiceClickListener;
@@ -54,7 +53,6 @@ import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.location.Location;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings.Secure;
@@ -987,26 +985,27 @@ public class MapActivityActions implements DialogProvider {
 		if (resolved != null) {
 			mapActivity.startActivity(intent);
 		} else {
-			AlertDialog.Builder builder = new AccessibleAlertBuilder(mapActivity);
-			builder.setMessage(getString(R.string.gps_status_app_not_found));
-			builder.setPositiveButton(
-					getString(R.string.default_buttons_yes),
-					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog,
-								int which) {
-							Intent intent = new Intent(Intent.ACTION_VIEW,
-									Uri.parse("market://search?q=pname:"
-											+ GPS_STATUS_COMPONENT));
-							try {
-								mapActivity.startActivity(intent);
-							} catch (ActivityNotFoundException e) {
-							}
-						}
-					});
-			builder.setNegativeButton(
-					getString(R.string.default_buttons_no), null);
-			builder.show();
+			Toast.makeText(mapActivity, R.string.gps_status_app_not_found, Toast.LENGTH_LONG).show();
+//			AlertDialog.Builder builder = new AccessibleAlertBuilder(mapActivity);
+//			builder.setMessage(getString(R.string.gps_status_app_not_found));
+//			builder.setPositiveButton(
+//					getString(R.string.default_buttons_yes),
+//					new DialogInterface.OnClickListener() {
+//						@Override
+//						public void onClick(DialogInterface dialog,
+//								int which) {
+//							Intent intent = new Intent(Intent.ACTION_VIEW,
+//									Uri.parse("market://search?q=pname:"
+//											+ GPS_STATUS_COMPONENT));
+//							try {
+//								mapActivity.startActivity(intent);
+//							} catch (ActivityNotFoundException e) {
+//							}
+//						}
+//					});
+//			builder.setNegativeButton(
+//					getString(R.string.default_buttons_no), null);
+//			builder.show();
 		}
 	}
 
